@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
+    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
 </head>
 <body>
+    <div class="container">
     <h1>Products</h1>
 
     <?php if (session()->getFlashdata('message')): ?>
@@ -59,5 +61,10 @@
             <?php endforeach; ?>
         </table>
     <?php endif; ?>
+    <br>
+    <a href="<?= site_url('dashboard') ?>" class="back-button">
+        ← Back to Dashboard
+    </a>
+    </div>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Customer</title>
+    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
 </head>
 <body>
     <h1>Add Customer</h1>

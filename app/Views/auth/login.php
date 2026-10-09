@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Staff Login</title>
+    <title>Login</title>
+    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
 </head>
 <body>
+    <div class="container">
     <h1>Staff Login</h1>
 
     <?php if (session()->getFlashdata('error')): ?>
@@ -24,5 +26,6 @@
 
         <button type="submit">Log in</button>
     </form>
+    </div>
 </body>
 </html>
