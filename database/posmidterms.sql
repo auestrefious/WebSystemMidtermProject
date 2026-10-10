@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 08, 2026 at 07:35 AM
+-- Generation Time: Oct 10, 2026 at 01:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `posmidterms`
+-- Database: `postmidterms`
 --
 
 -- --------------------------------------------------------
@@ -56,8 +56,13 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `stock_quantity`, `image`, `created_at`, `deleted_at`) VALUES
-(1, 'Gigi Murin Plushie', 10000.00, 70, '327e281ff797c1aa97e5254896dbe2c3.jpg', '2026-10-08 04:50:24', NULL),
-(2, 'Raora Panthera Plush', 7000.00, 48, '0ccc927528fb6645357c724a8af722a6.jpg', '2026-10-08 05:33:45', '2026-10-08 05:34:18');
+(1, 'Gigi Murin Plushie', 10000.00, 62, '327e281ff797c1aa97e5254896dbe2c3.jpg', '2026-10-08 04:50:24', NULL),
+(2, 'Raora Panthera Plush', 7000.00, 48, '0ccc927528fb6645357c724a8af722a6.jpg', '2026-10-08 05:33:45', '2026-10-08 05:34:18'),
+(3, 'UH-60 Blackhawk', 10000000.00, 5, '194c7feed23c376106fded0c6d85e3e3.jpg', '2026-10-10 10:35:44', NULL),
+(4, 'Astolfo Saber', 1200.00, 21, 'bcbe6d0646792bd66944ca4cd6a2d623.jpg', '2026-10-10 10:40:10', NULL),
+(5, 'Kumarine Nendoroid', 5000.00, 6, 'ce9f91a79422eac1a16b8a0d54f9c7f8.png', '2026-10-10 10:41:25', NULL),
+(6, 'MSA Millennium Riot Control gas mask', 12000.00, 4, '6ee82235c781ed24cc4272ebc720c8ce.png', '2026-10-10 10:42:41', NULL),
+(7, 'A-10 Warthog', 58000000.00, 10, 'f65e7ad283da6e9a8687aa71cd4fb865.png', '2026-10-10 10:47:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -74,6 +79,15 @@ CREATE TABLE `sales` (
   `total_price` decimal(10,2) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sales`
+--
+
+INSERT INTO `sales` (`id`, `product_id`, `customer_id`, `sold_by`, `quantity`, `total_price`, `created_at`) VALUES
+(1, 1, NULL, 1, 1, 10000.00, '2026-10-10 09:57:33'),
+(2, 1, NULL, 1, 2, 20000.00, '2026-10-10 09:58:10'),
+(3, 1, NULL, 1, 5, 50000.00, '2026-10-10 09:59:00');
 
 -- --------------------------------------------------------
 
@@ -143,13 +157,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
