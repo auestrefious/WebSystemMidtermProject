@@ -49,4 +49,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->get('products/(:num)/edit', 'Products::edit/$1');
     $routes->post('products/(:num)/update', 'Products::update/$1');
     $routes->post('products/(:num)/archive', 'Products::archive/$1');
+
+    // Sales Management
+    $routes->get('sales/record', 'Sales::record');
+    $routes->post('sales/store', 'Sales::store');
+    $routes->get('sales/history', 'Sales::history');
 });

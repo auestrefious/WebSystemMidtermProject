@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +41,7 @@
 
     <div class="dashboard-grid">
 
+        <!-- Staff Management -->
         <a href="<?= site_url('users') ?>" class="dashboard-card staff-card">
             <br>
             <h3>Staff Management</h3>
@@ -50,6 +52,7 @@
             <span>Manage Staff →</span>
         </a>
 
+        <!-- Customer Management -->
         <a href="<?= site_url('customers') ?>" class="dashboard-card customer-card">
             <br>
             <h3>Customer Management</h3>
@@ -60,6 +63,7 @@
             <span>Manage Customers →</span>
         </a>
 
+        <!-- Product Management -->
         <a href="<?= site_url('products') ?>" class="dashboard-card product-card">
             <br>
             <h3>Product Management</h3>
@@ -68,6 +72,28 @@
             <br>
             <br>
             <span>Manage Products →</span>
+        </a>
+
+        <!-- Record Sale -->
+        <a href="<?= site_url('sales/record') ?>" class="dashboard-card sales-card">
+            <br>
+            <h3>Record Sale</h3>
+            <p>Process customer purchases and automatically update product inventory.</p>
+            <br>
+            <br>
+            <br>
+            <span>Record New Sale →</span>
+        </a>
+
+        <!-- Sales History -->
+        <a href="<?= site_url('sales/history') ?>" class="dashboard-card history-card">
+            <br>
+            <h3>Sales History</h3>
+            <p>View past transactions, sold products, quantities, and total sales.</p>
+            <br>
+            <br>
+            <br>
+            <span>View Sales History →</span>
         </a>
 
     </div>
