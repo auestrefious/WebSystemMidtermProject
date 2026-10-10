@@ -69,11 +69,28 @@ class Users extends BaseController
                     ->with('errors', $this->validator->getErrors());
             }
 
-            $filename = bin2hex(random_bytes(16)) . '.jpg';
-            $destination = FCPATH . 'uploads/avatars/' . $filename;
+            // Automatically create the avatar folder if missing
+            $uploadPath = FCPATH . 'uploads/avatars/';
 
+            if (!is_dir($uploadPath)) {
+                if (!mkdir($uploadPath, 0755, true) && !is_dir($uploadPath)) {
+                    log_message('error', 'Unable to create avatar directory.');
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('errors', [
+                            'avatar' => 'Avatar upload directory is unavailable.',
+                        ]);
+                }
+            }
+
+            // Generate unique filename
+            $filename = bin2hex(random_bytes(16)) . '.jpg';
+            $destination = $uploadPath . $filename;
+
+            // Process image and convert to JPEG
             service('image')
                 ->withFile($avatar->getTempName())
+                ->convert(IMAGETYPE_JPEG)
                 ->fit(200, 200, 'center')
                 ->save($destination, 80);
 
@@ -157,11 +174,28 @@ class Users extends BaseController
                     ->with('errors', $this->validator->getErrors());
             }
 
-            $newAvatar = bin2hex(random_bytes(16)) . '.jpg';
-            $destination = FCPATH . 'uploads/avatars/' . $newAvatar;
+            // Automatically create the avatar folder if missing
+            $uploadPath = FCPATH . 'uploads/avatars/';
 
+            if (!is_dir($uploadPath)) {
+                if (!mkdir($uploadPath, 0755, true) && !is_dir($uploadPath)) {
+                    log_message('error', 'Unable to create avatar directory.');
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('errors', [
+                            'avatar' => 'Avatar upload directory is unavailable.',
+                        ]);
+                }
+            }
+
+            // Generate unique filename
+            $newAvatar = bin2hex(random_bytes(16)) . '.jpg';
+            $destination = $uploadPath . $newAvatar;
+
+            // Process image and convert to JPEG
             service('image')
                 ->withFile($avatar->getTempName())
+                ->convert(IMAGETYPE_JPEG)
                 ->fit(200, 200, 'center')
                 ->save($destination, 80);
 
@@ -170,6 +204,7 @@ class Users extends BaseController
 
         $model->update($id, $data);
 
+        // Remove previous avatar after successful update
         if ($newAvatar && !empty($user['avatar'])) {
             $oldAvatar = FCPATH . 'uploads/avatars/' . basename($user['avatar']);
 
