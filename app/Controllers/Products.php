@@ -8,9 +8,13 @@ class Products extends BaseController
 {
     public function index()
     {
-        $products = (new ProductModel())->orderBy('id', 'DESC')->findAll();
+        $products = (new ProductModel())
+            ->orderBy('id', 'DESC')
+            ->findAll();
 
-        return view('products/index', ['products' => $products]);
+        return view('products/index', [
+            'products' => $products
+        ]);
     }
 
     public function add()
@@ -21,8 +25,8 @@ class Products extends BaseController
     public function store()
     {
         $data = [
-            'name'           => trim((string) $this->request->getPost('name')),
-            'price'          => trim((string) $this->request->getPost('price')),
+            'name' => trim((string) $this->request->getPost('name')),
+            'price' => trim((string) $this->request->getPost('price')),
             'stock_quantity' => trim((string) $this->request->getPost('stock_quantity')),
         ];
 
@@ -33,8 +37,8 @@ class Products extends BaseController
         };
 
         $rules = [
-            'name'           => 'required|max_length[100]',
-            'price'          => 'required|decimal|greater_than_equal_to[0]',
+            'name' => 'required|max_length[100]',
+            'price' => 'required|decimal|greater_than_equal_to[0]',
             'stock_quantity' => 'required|integer|greater_than_equal_to[0]'
                 . '|less_than_equal_to[2147483647]',
         ];
@@ -43,11 +47,14 @@ class Products extends BaseController
             return $back($this->validator->getErrors());
         }
 
-        // DECIMAL(10,2): up to 8 digits before the point and 2 after it.
+        // Validate DECIMAL(10,2)
         if (!preg_match('/^\d{1,8}(?:\.\d{1,2})?$/', $data['price'])) {
-            return $back(['price' => 'Enter a price with at most two decimal places.']);
+            return $back([
+                'price' => 'Enter a valid price with at most two decimal places.'
+            ]);
         }
 
+        // Validate uploaded product image
         $imageRules = [
             'image' => 'uploaded[image]|is_image[image]'
                 . '|mime_in[image,image/jpeg,image/png]'
@@ -61,9 +68,34 @@ class Products extends BaseController
         }
 
         $image = $this->request->getFile('image');
-        $extension = $image->getMimeType() === 'image/png' ? 'png' : 'jpg';
+
+        // Automatically create product upload directory
+        $uploadPath = FCPATH . 'uploads/products/';
+
+        if (!is_dir($uploadPath)) {
+            if (!mkdir($uploadPath, 0755, true) && !is_dir($uploadPath)) {
+                log_message('error', 'Unable to create product upload directory.');
+
+                return $back([
+                    'image' => 'Product upload directory is unavailable.'
+                ]);
+            }
+        }
+
+        // Check directory permissions
+        if (!is_writable($uploadPath)) {
+            return $back([
+                'image' => 'Product upload directory is not writable.'
+            ]);
+        }
+
+        // Generate unique image filename
+        $extension = $image->getMimeType() === 'image/png'
+            ? 'png'
+            : 'jpg';
+
         $filename = bin2hex(random_bytes(16)) . '.' . $extension;
-        $destination = FCPATH . 'uploads/products/' . $filename;
+        $destination = $uploadPath . $filename;
 
         try {
             service('image')
@@ -71,7 +103,11 @@ class Products extends BaseController
                 ->fit(400, 400, 'center')
                 ->save($destination);
         } catch (\Throwable $e) {
-            return $back(['image' => 'The image could not be prepared.']);
+            log_message('error', 'Product image error: ' . $e->getMessage());
+
+            return $back([
+                'image' => 'The image could not be prepared.'
+            ]);
         }
 
         $data['image'] = $filename;
@@ -82,7 +118,7 @@ class Products extends BaseController
         return redirect()->to(site_url('products'))
             ->with('message', 'Product added.');
     }
-    
+
     public function edit(int $id)
     {
         $product = (new ProductModel())->find($id);
@@ -92,7 +128,9 @@ class Products extends BaseController
                 ->with('error', 'Product not found.');
         }
 
-        return view('products/edit', ['product' => $product]);
+        return view('products/edit', [
+            'product' => $product
+        ]);
     }
 
     public function update(int $id)
@@ -106,8 +144,8 @@ class Products extends BaseController
         }
 
         $data = [
-            'name'           => trim((string) $this->request->getPost('name')),
-            'price'          => trim((string) $this->request->getPost('price')),
+            'name' => trim((string) $this->request->getPost('name')),
+            'price' => trim((string) $this->request->getPost('price')),
             'stock_quantity' => trim((string) $this->request->getPost('stock_quantity')),
         ];
 
@@ -118,8 +156,8 @@ class Products extends BaseController
         };
 
         $rules = [
-            'name'           => 'required|max_length[100]',
-            'price'          => 'required|decimal|greater_than_equal_to[0]',
+            'name' => 'required|max_length[100]',
+            'price' => 'required|decimal|greater_than_equal_to[0]',
             'stock_quantity' => 'required|integer|greater_than_equal_to[0]'
                 . '|less_than_equal_to[2147483647]',
         ];
@@ -128,15 +166,21 @@ class Products extends BaseController
             return $back($this->validator->getErrors());
         }
 
+        // Validate DECIMAL(10,2)
         if (!preg_match('/^\d{1,8}(?:\.\d{1,2})?$/', $data['price'])) {
-            return $back(['price' => 'Enter a price with at most two decimal places.']);
+            return $back([
+                'price' => 'Enter a valid price with at most two decimal places.'
+            ]);
         }
 
         $image = $this->request->getFile('image');
         $newFilename = null;
-        $folder = FCPATH . 'uploads/products/';
 
+        $uploadPath = FCPATH . 'uploads/products/';
+
+        // Only process an image if a new one was uploaded
         if ($image && $image->getError() !== UPLOAD_ERR_NO_FILE) {
+
             $imageRules = [
                 'image' => 'uploaded[image]|is_image[image]'
                     . '|mime_in[image,image/jpeg,image/png]'
@@ -149,16 +193,42 @@ class Products extends BaseController
                 return $back($this->validator->getErrors());
             }
 
-            $extension = $image->getMimeType() === 'image/png' ? 'png' : 'jpg';
+            // Automatically create product upload directory
+            if (!is_dir($uploadPath)) {
+                if (!mkdir($uploadPath, 0755, true) && !is_dir($uploadPath)) {
+                    log_message('error', 'Unable to create product upload directory.');
+
+                    return $back([
+                        'image' => 'Product upload directory is unavailable.'
+                    ]);
+                }
+            }
+
+            // Check directory permissions
+            if (!is_writable($uploadPath)) {
+                return $back([
+                    'image' => 'Product upload directory is not writable.'
+                ]);
+            }
+
+            // Generate unique image filename
+            $extension = $image->getMimeType() === 'image/png'
+                ? 'png'
+                : 'jpg';
+
             $newFilename = bin2hex(random_bytes(16)) . '.' . $extension;
 
             try {
                 service('image')
                     ->withFile($image->getTempName())
                     ->fit(400, 400, 'center')
-                    ->save($folder . $newFilename);
+                    ->save($uploadPath . $newFilename);
             } catch (\Throwable $e) {
-                return $back(['image' => 'The image could not be prepared.']);
+                log_message('error', 'Product image error: ' . $e->getMessage());
+
+                return $back([
+                    'image' => 'The image could not be prepared.'
+                ]);
             }
 
             $data['image'] = $newFilename;
@@ -166,8 +236,9 @@ class Products extends BaseController
 
         $model->update($id, $data);
 
-        if ($newFilename && $product['image']) {
-            $oldPath = $folder . basename($product['image']);
+        // Remove previous image after successful update
+        if ($newFilename && !empty($product['image'])) {
+            $oldPath = $uploadPath . basename($product['image']);
 
             if (is_file($oldPath)) {
                 unlink($oldPath);
