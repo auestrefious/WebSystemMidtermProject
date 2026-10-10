@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>POS Dashboard</title>
 
-    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
 <div class="container dashboard-container">
 
+    <!-- Dashboard Header -->
     <div class="dashboard-header">
         <div>
             <p class="dashboard-label">POINT OF SALE SYSTEM</p>
@@ -23,11 +23,9 @@
             </p>
         </div>
 
-        <form
-            action="<?= site_url('logout') ?>"
-            method="post"
-            class="logout-form"
-        >
+        <form action="<?= site_url('logout') ?>"
+              method="post"
+              class="logout-form">
             <?= csrf_field() ?>
             <button type="submit" class="logout-button">
                 Logout
@@ -35,65 +33,44 @@
         </form>
     </div>
 
-    <hr>
-
+    <!-- Management Sections -->
     <h2>Management Sections</h2>
 
     <div class="dashboard-grid">
 
-        <!-- Staff Management -->
-        <a href="<?= site_url('users') ?>" class="dashboard-card staff-card">
-            <br>
+        <a href="<?= site_url('users') ?>"
+           class="dashboard-card staff-card">
             <h3>Staff Management</h3>
             <p>Add, edit, delete, and manage staff accounts.</p>
-            <br>
-            <br>
-            <br>
-            <span>Manage Staff →</span>
+            <span>Manage Staff &rarr;</span>
         </a>
 
-        <!-- Customer Management -->
-        <a href="<?= site_url('customers') ?>" class="dashboard-card customer-card">
-            <br>
+        <a href="<?= site_url('customers') ?>"
+           class="dashboard-card customer-card">
             <h3>Customer Management</h3>
             <p>View and manage customer records.</p>
-            <br>
-            <br>
-            <br>
-            <span>Manage Customers →</span>
+            <span>Manage Customers &rarr;</span>
         </a>
 
-        <!-- Product Management -->
-        <a href="<?= site_url('products') ?>" class="dashboard-card product-card">
-            <br>
+        <a href="<?= site_url('products') ?>"
+           class="dashboard-card product-card">
             <h3>Product Management</h3>
             <p>Add, edit, archive, and manage products.</p>
-            <br>
-            <br>
-            <br>
-            <span>Manage Products →</span>
+            <span>Manage Products &rarr;</span>
         </a>
 
-        <!-- Record Sale -->
-        <a href="<?= site_url('sales/record') ?>" class="dashboard-card sales-card">
-            <br>
+        <a href="<?= site_url('sales/record') ?>"
+           class="dashboard-card sales-card">
             <h3>Record Sale</h3>
-            <p>Process customer purchases and automatically update product inventory.</p>
-            <br>
-            <br>
-            <br>
-            <span>Record New Sale →</span>
+            <p>Process customer purchases and update product inventory.</p>
+            <span>Record New Sale &rarr;</span>
         </a>
 
-        <!-- Sales History -->
-        <a href="<?= site_url('sales/history') ?>" class="dashboard-card history-card">
-            <br>
+        <a href="<?= site_url('sales/history') ?>"
+           class="dashboard-card history-card">
             <h3>Sales History</h3>
-            <p>View past transactions, sold products, quantities, and total sales.</p>
-            <br>
-            <br>
-            <br>
-            <span>View Sales History →</span>
+            <p>View past transactions, quantities, and total sales.</p>
+            <span>View Sales History &rarr;</span>
         </a>
 
     </div>

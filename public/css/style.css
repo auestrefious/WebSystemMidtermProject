@@ -1,0 +1,475 @@
+
+/* =========================
+   GENERAL STYLING
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #222;
+    margin: 0;
+    padding: 30px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #1f2937;
+    margin-top: 0;
+}
+
+a {
+    color: #2563eb;
+}
+
+.back-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 16px;
+    background-color: #6b7280;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.back-button:hover {
+    background-color: #4b5563;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: #2563eb;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #1d4ed8;
+}
+
+/* =========================
+   TABLES
+========================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #2563eb;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+td img {
+    max-width: 90px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* =========================
+   FORMS AND BUTTONS
+========================= */
+
+input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+select,
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 16px;
+    background-color: #16a34a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #15803d;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 25px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #d1d5db;
+}
+
+.dashboard-label {
+    margin: 0 0 5px;
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    color: #111827;
+    font-size: 30px;
+}
+
+.welcome-text {
+    margin: 8px 0 0;
+    color: #6b7280;
+}
+
+.welcome-text strong {
+    color: #111827;
+}
+
+/* Logout button */
+
+.logout-form {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.logout-button {
+    padding: 9px 15px;
+    background-color: #6b7280;
+    color: white;
+    border-radius: 5px;
+    font-weight: normal;
+}
+
+.logout-button:hover {
+    background-color: #4b5563;
+}
+
+/* Dashboard section title */
+
+.dashboard-container h2 {
+    margin-top: 28px;
+    margin-bottom: 15px;
+    color: #374151;
+    font-size: 21px;
+}
+
+/* =========================
+   DASHBOARD CARDS
+========================= */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.dashboard-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 175px;
+    padding: 22px;
+    border: 1px solid #d1d5db;
+    border-top: 4px solid #2563eb;
+    border-radius: 5px;
+    background-color: white;
+    color: #374151;
+    text-decoration: none;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.dashboard-card:hover {
+    background-color: #f8fafc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    color: #374151;
+    text-decoration: none;
+}
+
+.dashboard-card h3 {
+    margin: 0 0 12px;
+    color: #1f2937;
+    font-size: 18px;
+}
+
+.dashboard-card p {
+    flex: 1;
+    min-height: 0;
+    margin: 0 0 20px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+.dashboard-card span {
+    margin-top: auto;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Different card colors */
+
+.staff-card {
+    border-top-color: #2563eb;
+}
+
+.customer-card {
+    border-top-color: #16a34a;
+}
+
+.product-card {
+    border-top-color: #d97706;
+}
+
+.sales-card {
+    border-top-color: #0891b2;
+}
+
+.history-card {
+    border-top-color: #7c3aed;
+}
+
+.card-icon {
+    display: block;
+    width: auto;
+    height: auto;
+    margin-bottom: 15px;
+    background: none;
+    font-size: 24px;
+}
+
+/* =========================
+   SALES MANAGEMENT
+========================= */
+
+.sales-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.sales-container h1 {
+    color: #1f2937;
+    margin-bottom: 20px;
+}
+
+/* Record Sale form */
+
+.sales-form {
+    max-width: 500px;
+    margin-top: 20px;
+}
+
+.sales-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #374151;
+}
+
+.sales-form select,
+.sales-form input {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 18px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 14px;
+}
+
+.sales-form select:focus,
+.sales-form input:focus {
+    outline: 2px solid #93c5fd;
+    border-color: #2563eb;
+}
+
+.sales-form button {
+    background-color: #16a34a;
+    color: white;
+    padding: 11px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.sales-form button:hover {
+    background-color: #15803d;
+}
+
+/* =========================
+   SALES HISTORY
+========================= */
+
+.sales-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.sales-table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+}
+
+.sales-table th {
+    background-color: #2563eb;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.sales-table td {
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+.sales-table tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+.sales-table tr:hover {
+    background-color: #eff6ff;
+}
+
+/* =========================
+   SUCCESS AND ERROR MESSAGES
+========================= */
+
+.sales-success {
+    background-color: #dcfce7;
+    color: #166534;
+    padding: 12px 15px;
+    margin: 15px 0;
+    border-left: 4px solid #16a34a;
+    border-radius: 5px;
+}
+
+.sales-error {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    padding: 12px 15px;
+    margin: 15px 0;
+    border-left: 4px solid #dc2626;
+    border-radius: 5px;
+}
+
+/* =========================
+   SALES NAVIGATION
+========================= */
+
+.sales-navigation {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.sales-navigation a {
+    display: inline-block;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.sales-navigation a:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+/* Tablets */
+
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Mobile devices */
+
+@media (max-width: 600px) {
+    body {
+        padding: 12px;
+    }
+
+    .container {
+        padding: 18px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .logout-form {
+        width: auto;
+    }
+
+    .sales-form {
+        width: 100%;
+    }
+
+    .sales-navigation {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
